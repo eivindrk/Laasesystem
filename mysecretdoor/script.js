@@ -16,8 +16,8 @@ const sendHttpRequest = (method, url, data) => {
         xhr.onerror = () => {
             reject('Error, something went wrong');
         }
-        //xhttp.setRequestHeader('Access-Control-Allow-Headers', '*');
-        //xhttp.setRequestHeader('Access-Control-Allow-Origin', '*'); // Prøv dette
+        xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+        xhr.setRequestHeader('Access-Control-Allow-Origin', '*'); // Prøv dette
         xhr.send(JSON.stringify(data));
         console.log(JSON.stringify(data));
     });
@@ -25,11 +25,11 @@ const sendHttpRequest = (method, url, data) => {
 };
 
 const getData = () => {
-    sendHttpRequest('GET', 'http://46.9.150.53/close');
+    sendHttpRequest('GET', 'http://212.251.163.91/close');
 };
 
 const sendData = () => {
-    sendHttpRequest('POST', 'http://46.9.150.53/open', {
+    sendHttpRequest('POST', 'http://212.251.163.91/open', {
         doorcode: "gullsmidige"
     });
 }

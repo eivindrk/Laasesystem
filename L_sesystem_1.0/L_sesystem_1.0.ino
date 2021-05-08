@@ -41,7 +41,7 @@ void setup() {
     server.send(200, "text/plain", "Hei godgutten, Andyboy!\n Du e ein snill gutt!");
   });
   server.on("/open", HTTP_OPTIONS, sendCrossOriginHeader);
-  server.on("/open", open);
+  server.on("/open", HTTP_POST, open);
   server.on("/close", close);
 
   // server.on("/toggle", toggle);
@@ -69,9 +69,6 @@ void open() {
   String doorcode = jObject["doorcode"];
 
   String kode = "gullsmidige";
-  servoOpen.write(180);
-  delay(2000);
-  servoOpen.write(0);
   if (doorcode == kode) {
     servoOpen.write(180);
     delay(2000);
