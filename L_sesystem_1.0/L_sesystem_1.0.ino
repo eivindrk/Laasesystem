@@ -21,6 +21,13 @@ Servo servoClose;
 const int servo_pin1 = 0; //Åpne servo
 const int servo_pin2 = 0; //Låse servo
 
+void setCrossOrigin() {
+  server.sendHeader("Access-Control-Allow-Origin", "*");
+  server.sendHeader("Access-Control-Allow-Headers", "*");
+  server.sendHeader("Access-Control-Max-Age", "600");
+  server.sendHeader("Access-Control-Allow-Methods", "PUT,POST,GET,OPTIONS,HEAD");
+}
+
 void setup() {
   // Connect to Wifi
   WiFi.begin(ssid, password);
@@ -37,6 +44,7 @@ void setup() {
   server.on("/", []() {
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.sendHeader("Access-Control-Allow-Headers", "*");
+    server.sendHeader("Access-Control-Max-Age", "600");
     server.sendHeader("Access-Control-Allow-Methods", "PUT,POST,GET,OPTIONS,HEAD");
     server.send(200, "text/plain", "Hei godgutten, Andyboy!\n Du e ein snill gutt!");
   });
@@ -56,7 +64,7 @@ void setup() {
 
 // test funksjon
 void test() {
-  server.send(200)
+  server.send(200);
 }
 
 void loop() {
@@ -67,7 +75,7 @@ void loop() {
 
 //Funksjoner:
 void open() {
-
+  setCrossOrigin();
   // Henter ut koden som er sendt fra nettsiden
   String data = server.arg("plain");
   StaticJsonBuffer<200> jBuffer;
