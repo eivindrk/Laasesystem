@@ -42,6 +42,7 @@ void setup() {
   });
   server.on("/open", HTTP_OPTIONS, sendCrossOriginHeader);
   server.on("/open", HTTP_POST, open);
+  server.on("/test", HTTP_POST, test);
   server.on("/close", close);
 
   // server.on("/toggle", toggle);
@@ -51,6 +52,11 @@ void setup() {
   servoOpen.attach(servo_pin1);
   servoClose.attach(servo_pin2);
 
+}
+
+// test funksjon
+void test() {
+  server.send(200)
 }
 
 void loop() {
