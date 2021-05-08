@@ -1,6 +1,25 @@
 const lockBtn = document.getElementById('lockbutton');
 const unlockBtn = document.getElementById('unlockbutton2');
-const kode = document.getElementById('kode');
+let kode = document.getElementById('kode');
+
+
+const myForm = document.getElementById('myForm');
+myForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch('http://212.251.163.91/open', {
+        method: 'post', 
+        body: formData
+    }).then(function(response) {
+        return response.text();
+    }).then(function(text) {
+        console.log(text);
+    }).catch(function (error) {
+        console.log(error);
+    });
+});
 
 const sendHttpRequest = (method, url, data) => {
     const promise = new Promise((resolve, reject) => {
@@ -16,9 +35,8 @@ const sendHttpRequest = (method, url, data) => {
         xhr.onerror = () => {
             reject('Error, something went wrong');
         }
-        xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
-        xhr.setRequestHeader('Access-Control-Allow-Origin', '*'); // Prøv dette
         xhr.send(JSON.stringify(data));
+        //JSON.stringify(data)
         console.log(JSON.stringify(data));
     });
     return promise;
@@ -29,8 +47,9 @@ const getData = () => {
 };
 
 const sendData = () => {
+    let nyknapp = document.getElementById('kode').value;
     sendHttpRequest('POST', 'http://212.251.163.91/open', {
-        doorcode: "gullsmidige"
+        doorcode: nyknapp
     });
 }
 
