@@ -104,6 +104,7 @@ void open() {
 
 // Funksjon for å håndtere option request. Sender tilbake ok
 void sendCrossOriginHeader(){
+    setCrossOrigin();
     server.send(204);
 }
 
