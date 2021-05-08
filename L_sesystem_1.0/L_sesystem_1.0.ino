@@ -40,9 +40,9 @@ void setup() {
     server.sendHeader("Access-Control-Allow-Methods", "PUT,POST,GET,OPTIONS,HEAD");
     server.send(200, "text/plain", "Hei godgutten, Andyboy!\n Du e ein snill gutt!");
   });
-
-  server.on("/close", close);
+  server.on("/open", HTTP_OPTIONS, sendCrossOriginHeader);
   server.on("/open", open);
+  server.on("/close", close);
 
   // server.on("/toggle", toggle);
   server.begin();
@@ -52,7 +52,6 @@ void setup() {
   servoClose.attach(servo_pin2);
 
 }
-
 
 void loop() {
   // put your main code here, to run repeatedly:
@@ -81,17 +80,20 @@ void open() {
     server.sendHeader("Access-Control-Allow-Headers", "*");
     server.sendHeader("Access-Control-Allow-Methods", "PUT,POST,GET,OPTIONS,HEAD");
     server.send(204, "");
+    //server.send(204); // Prøv kanskje dette
   }
   else{
     server.sendHeader("Access-Control-Allow-Origin", "*");
     server.sendHeader("Access-Control-Allow-Headers", "*");
     server.sendHeader("Access-Control-Allow-Methods", "PUT,POST,GET,OPTIONS,HEAD");
     server.send(400, "");
+    //server.send(400); // Prøv kanskje dette
   }
+}
 
-//YOYOYOYOYYOYOYOYO
-  
-
+// Funksjon for å håndtere option request. Sender tilbake ok
+void sendCrossOriginHeader(){
+    server.send(204);
 }
 
 void close() {
